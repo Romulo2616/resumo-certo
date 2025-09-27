@@ -1,166 +1,12 @@
 // Configuração da API OpenAI
-const OPENAI_API_KEY = 'SUA_CHAVE_API_AQUI'; // Substitua pela sua chave da OpenAI
+const OPENAI_API_KEY = ''; // Substitua pela sua chave da OpenAI
 const OPENAI_API_URL = 'https://api.openai.com/v1/chat/completions';
-
-// Dados das matérias e assuntos
-const subjectsData = {
-    matematica: {
-        name: 'Matemática',
-        icon: 'fas fa-calculator',
-        color: 'blue',
-        topics: [
-            'Álgebra Básica',
-            'Equações do 2º Grau (Bhaskara)',
-            'Funções',
-            'Trigonometria',
-            'Geometria Plana',
-            'Geometria Espacial',
-            'Progressões',
-            'Logaritmos',
-            'Análise Combinatória',
-            'Probabilidade',
-            'Estatística',
-            'Matemática Financeira'
-        ]
-    },
-    fisica: {
-        name: 'Física',
-        icon: 'fas fa-atom',
-        color: 'green',
-        topics: [
-            'Cinemática',
-            'Dinâmica',
-            'Estática',
-            'Hidrostática',
-            'Termodinâmica',
-            'Óptica',
-            'Ondulatória',
-            'Eletrostática',
-            'Eletrodinâmica',
-            'Magnetismo',
-            'Física Moderna'
-        ]
-    },
-    quimica: {
-        name: 'Química',
-        icon: 'fas fa-flask',
-        color: 'purple',
-        topics: [
-            'Estrutura Atômica',
-            'Tabela Periódica',
-            'Ligações Químicas',
-            'Reações Químicas',
-            'Estequiometria',
-            'Soluções',
-            'Termoquímica',
-            'Cinética Química',
-            'Equilíbrio Químico',
-            'Eletroquímica',
-            'Química Orgânica',
-            'Isomeria'
-        ]
-    },
-    biologia: {
-        name: 'Biologia',
-        icon: 'fas fa-dna',
-        color: 'emerald',
-        topics: [
-            'Citologia',
-            'Histologia',
-            'Embriologia',
-            'Genética',
-            'Evolução',
-            'Taxonomia',
-            'Anatomia Humana',
-            'Fisiologia',
-            'Ecologia',
-            'Botânica',
-            'Zoologia',
-            'Microbiologia'
-        ]
-    },
-    historia: {
-        name: 'História',
-        icon: 'fas fa-landmark',
-        color: 'yellow',
-        topics: [
-            'História Antiga',
-            'História Medieval',
-            'História Moderna',
-            'História Contemporânea',
-            'Brasil Colônia',
-            'Brasil Império',
-            'Brasil República',
-            'Primeira Guerra Mundial',
-            'Segunda Guerra Mundial',
-            'Guerra Fria',
-            'Ditadura Militar',
-            'Nova República'
-        ]
-    },
-    geografia: {
-        name: 'Geografia',
-        icon: 'fas fa-globe-americas',
-        color: 'teal',
-        topics: [
-            'Cartografia',
-            'Geologia',
-            'Geomorfologia',
-            'Climatologia',
-            'Hidrografia',
-            'Biogeografia',
-            'Demografia',
-            'Urbanização',
-            'Industrialização',
-            'Agropecuária',
-            'Globalização',
-            'Geopolítica'
-        ]
-    },
-    portugues: {
-        name: 'Português',
-        icon: 'fas fa-book',
-        color: 'red',
-        topics: [
-            'Fonética e Fonologia',
-            'Morfologia',
-            'Sintaxe',
-            'Semântica',
-            'Concordância',
-            'Regência',
-            'Crase',
-            'Pontuação',
-            'Interpretação de Textos',
-            'Gêneros Textuais',
-            'Redação',
-            'Figuras de Linguagem'
-        ]
-    },
-    literatura: {
-        name: 'Literatura',
-        icon: 'fas fa-feather-alt',
-        color: 'pink',
-        topics: [
-            'Trovadorismo',
-            'Humanismo',
-            'Classicismo',
-            'Barroco',
-            'Arcadismo',
-            'Romantismo',
-            'Realismo',
-            'Naturalismo',
-            'Parnasianismo',
-            'Simbolismo',
-            'Pré-Modernismo',
-            'Modernismo'
-        ]
-    }
-};
 
 // Estado global da aplicação
 let currentState = {
     subject: null,
     topic: null,
+    topicType: 'principais', // 'principais' ou 'diversos'
     chatHistory: []
 };
 
@@ -197,6 +43,7 @@ function initIndexPage() {
             const subject = this.dataset.subject;
             currentState.subject = subject;
             currentState.topic = null;
+            currentState.topicType = 'principais';
             currentState.chatHistory = [];
             saveState();
             window.location.href = 'assuntos.html';
@@ -230,32 +77,89 @@ function initAssuntosPage() {
     iconElement.className = `${subjectData.icon} text-3xl text-${subjectData.color}-600`;
     document.getElementById('subject-icon').className = `w-20 h-20 bg-${subjectData.color}-100 rounded-full flex items-center justify-center mx-auto mb-4`;
 
-    // Carregar assuntos
+    // Configurar abas
+    setupTabs(subjectData);
+
+    // Carregar assuntos principais por padrão
+    loadTopics(subjectData.topics, subjectData, 'principais');
+}
+
+function setupTabs(subjectData) {
+    const tabMain = document.getElementById('tab-main');
+    const tabDiverse = document.getElementById('tab-diverse');
+
+    tabMain.addEventListener('click', function () {
+        setActiveTab('main');
+        loadTopics(subjectData.topics, subjectData, 'principais');
+    });
+
+    tabDiverse.addEventListener('click', function () {
+        setActiveTab('diverse');
+        loadTopics(subjectData.diverseTopics, subjectData, 'diversos');
+    });
+}
+
+function setActiveTab(activeTab) {
+    const tabMain = document.getElementById('tab-main');
+    const tabDiverse = document.getElementById('tab-diverse');
+
+    // Remover classes ativas
+    tabMain.classList.remove('bg-indigo-600', 'text-white');
+    tabMain.classList.add('bg-gray-200', 'text-gray-700');
+
+    tabDiverse.classList.remove('bg-indigo-600', 'text-white');
+    tabDiverse.classList.add('bg-gray-200', 'text-gray-700');
+
+    // Adicionar classe ativa à aba selecionada
+    if (activeTab === 'main') {
+        tabMain.classList.remove('bg-gray-200', 'text-gray-700');
+        tabMain.classList.add('bg-indigo-600', 'text-white');
+    } else {
+        tabDiverse.classList.remove('bg-gray-200', 'text-gray-700');
+        tabDiverse.classList.add('bg-indigo-600', 'text-white');
+    }
+}
+
+function loadTopics(topics, subjectData, type) {
     const topicsContainer = document.getElementById('topics-container');
     topicsContainer.innerHTML = '';
 
-    subjectData.topics.forEach((topic, index) => {
-        const topicCard = document.createElement('div');
-        topicCard.className = 'topic-card bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:-translate-y-1';
-        topicCard.innerHTML = `
-            <div class="p-6">
-                <div class="flex items-center justify-between mb-3">
-                    <h3 class="text-lg font-semibold text-gray-900">${topic}</h3>
-                    <i class="fas fa-arrow-right text-${subjectData.color}-600"></i>
-                </div>
-                <p class="text-gray-600 text-sm">Clique para estudar este assunto</p>
-            </div>
-        `;
+    // Adicionar animação de fade
+    topicsContainer.style.opacity = '0';
 
-        topicCard.addEventListener('click', function () {
-            currentState.topic = topic;
-            currentState.chatHistory = [];
-            saveState();
-            window.location.href = 'chat.html';
+    setTimeout(() => {
+        topics.forEach((topic, index) => {
+            const topicCard = document.createElement('div');
+            topicCard.className = 'topic-card bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:-translate-y-1';
+
+            const iconClass = type === 'diversos' ? 'fas fa-lightbulb' : 'fas fa-arrow-right';
+            const description = type === 'diversos' ? 'Assunto complementar e interdisciplinar' : 'Clique para estudar este assunto';
+
+            topicCard.innerHTML = `
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-lg font-semibold text-gray-900">${topic}</h3>
+                        <i class="${iconClass} text-${subjectData.color}-600"></i>
+                    </div>
+                    <p class="text-gray-600 text-sm">${description}</p>
+                    ${type === 'diversos' ? `<span class="inline-block mt-2 px-2 py-1 bg-${subjectData.color}-100 text-${subjectData.color}-700 text-xs rounded-full">Diversos</span>` : ''}
+                </div>
+            `;
+
+            topicCard.addEventListener('click', function () {
+                currentState.topic = topic;
+                currentState.topicType = type;
+                currentState.chatHistory = [];
+                saveState();
+                window.location.href = 'chat.html';
+            });
+
+            topicsContainer.appendChild(topicCard);
         });
 
-        topicsContainer.appendChild(topicCard);
-    });
+        // Fade in
+        topicsContainer.style.opacity = '1';
+    }, 150);
 }
 
 // Página do chat
@@ -275,6 +179,16 @@ function initChatPage() {
     document.getElementById('current-subject').textContent = subjectData.name;
     document.getElementById('current-topic').textContent = currentState.topic;
     document.getElementById('topic-name').textContent = currentState.topic;
+
+    // Mostrar badge se for assunto diverso
+    const topicTypeBadge = document.getElementById('topic-type-badge');
+    if (currentState.topicType === 'diversos') {
+        topicTypeBadge.classList.remove('hidden');
+        topicTypeBadge.textContent = 'Diversos';
+        topicTypeBadge.className = `ml-2 px-2 py-1 bg-${subjectData.color}-100 text-${subjectData.color}-700 text-xs rounded-full`;
+    } else {
+        topicTypeBadge.classList.add('hidden');
+    }
 
     // Configurar eventos
     const messageInput = document.getElementById('message-input');
@@ -417,11 +331,13 @@ async function callOpenAI(userMessage) {
 Este é um exemplo de como a IA responderia sobre ${currentState.topic}. Com a API configurada, você terá respostas personalizadas e inteligentes para suas dúvidas de estudo.`;
     }
 
+    const topicTypeText = currentState.topicType === 'diversos' ? 'um assunto complementar e interdisciplinar' : 'um assunto específico';
     const systemMessage = `Você é um assistente especializado em ensinar ${subjectsData[currentState.subject].name} para alunos do ensino médio que estão se preparando para o ENEM. 
 
 Contexto atual:
 - Matéria: ${subjectsData[currentState.subject].name}
 - Assunto específico: ${currentState.topic}
+- Tipo: ${topicTypeText}
 
 Diretrizes:
 - Seja didático e use linguagem clara
@@ -429,7 +345,8 @@ Diretrizes:
 - Relacione com questões do ENEM quando relevante
 - Se o aluno pedir questões ou exercícios, forneça problemas no estilo ENEM
 - Seja encorajador e motivador
-- Use formatação markdown para melhor legibilidade`;
+- Use formatação markdown para melhor legibilidade
+${currentState.topicType === 'diversos' ? '- Este é um assunto complementar, então explore conexões interdisciplinares e aplicações práticas' : ''}`;
 
     const messages = [
         { role: 'system', content: systemMessage },

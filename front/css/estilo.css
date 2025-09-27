@@ -252,3 +252,39 @@ html {
 .btn-hover-effect:hover::before {
     left: 100%;
 }
+
+/* Estilos para as abas */
+.tab-button {
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.tab-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tab-button.active {
+    border-color: rgba(99, 102, 241, 0.3);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+}
+
+/* Animação de fade para o container de tópicos */
+#topics-container {
+    transition: opacity 0.3s ease;
+}
+
+/* Badge para assuntos diversos */
+.topic-type-badge {
+    animation: pulse 2s infinite;
+}
+
+/* Estilo especial para cards de assuntos diversos */
+.topic-card.diverse {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-left: 4px solid #3b82f6;
+}
+
+.topic-card.diverse:hover {
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+}

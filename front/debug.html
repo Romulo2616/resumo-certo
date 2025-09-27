@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Funcionalidade - Estudo Certo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <h1 class="text-2xl font-bold mb-4">Teste de Funcionalidades</h1>
+    
+    <div class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-lg font-semibold mb-4">Status dos Arquivos:</h2>
+        
+        <div id="dados-status" class="mb-2">
+            <span class="font-medium">dados.js:</span> 
+            <span id="dados-result" class="text-red-600">Carregando...</span>
+        </div>
+        
+        <div id="scripts-status" class="mb-2">
+            <span class="font-medium">scripts.js:</span> 
+            <span id="scripts-result" class="text-red-600">Carregando...</span>
+        </div>
+        
+        <div id="materias-count" class="mb-4">
+            <span class="font-medium">Matérias carregadas:</span> 
+            <span id="count-result" class="text-red-600">-</span>
+        </div>
+        
+        <button onclick="testNavigation()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            Testar Navegação
+        </button>
+    </div>
+
+    <script src="js/dados.js"></script>
+    <script src="js/scripts.js"></script>
+    <script>
+        // Testar se os dados foram carregados
+        if (typeof subjectsData !== 'undefined') {
+            document.getElementById('dados-result').textContent = '✅ OK';
+            document.getElementById('dados-result').className = 'text-green-600';
+            document.getElementById('count-result').textContent = Object.keys(subjectsData).length;
+            document.getElementById('count-result').className = 'text-green-600';
+        } else {
+            document.getElementById('dados-result').textContent = '❌ Erro';
+        }
+        
+        // Testar se as funções foram carregadas
+        if (typeof saveState !== 'undefined' && typeof loadState !== 'undefined') {
+            document.getElementById('scripts-result').textContent = '✅ OK';
+            document.getElementById('scripts-result').className = 'text-green-600';
+        } else {
+            document.getElementById('scripts-result').textContent = '❌ Erro';
+        }
+        
+        function testNavigation() {
+            // Simular seleção de matéria
+            currentState.subject = 'matematica';
+            currentState.topic = null;
+            currentState.topicType = 'principais';
+            currentState.chatHistory = [];
+            saveState();
+            
+            alert('Estado salvo! Redirecionando para assuntos...');
+            window.location.href = 'assuntos.html';
+        }
+    </script>
+</body>
+</html>

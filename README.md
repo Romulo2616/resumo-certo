@@ -5,11 +5,13 @@ Um site inteligente para ajudar alunos do ensino médio a estudar para o ENEM, c
 ## 🚀 Funcionalidades
 
 - **Seleção de Matérias**: 8 matérias principais do ENEM (Matemática, Física, Química, Biologia, História, Geografia, Português, Literatura)
-- **Assuntos Específicos**: Cada matéria possui vários assuntos detalhados (ex: Bhaskara, Trigonometria)
-- **Chat Inteligente**: Integração com ChatGPT para tirar dúvidas e explicar conceitos
+- **Assuntos Principais**: Tópicos específicos de cada matéria (ex: Bhaskara, Trigonometria)
+- **Assuntos Diversos**: Tópicos complementares e interdisciplinares para cada matéria
+- **Sistema de Abas**: Navegação entre assuntos principais e diversos
+- **Chat Inteligente**: Integração com ChatGPT contextualizado por tipo de assunto
 - **Recomendação de Questões**: IA sugere exercícios práticos após o estudo
 - **Design Responsivo**: Interface moderna usando Tailwind CSS
-- **Navegação Intuitiva**: Fluxo simples: Matéria → Assunto → Chat
+- **Navegação Intuitiva**: Fluxo simples: Matéria → Aba → Assunto → Chat
 
 ## 🛠️ Tecnologias Utilizadas
 
@@ -29,6 +31,7 @@ front/
 ├── css/
 │   └── estilo.css      # Estilos customizados
 └── js/
+    ├── dados.js        # Dados das matérias e assuntos
     └── scripts.js      # Lógica da aplicação e integração API
 ```
 
@@ -78,8 +81,9 @@ npx http-server
 - Cada matéria tem um ícone e cor característicos
 
 ### 2. Escolher Assunto
-- Selecione o assunto específico dentro da matéria
-- Por exemplo: em Matemática você pode escolher "Bhaskara", "Trigonometria", etc.
+- **Assuntos Principais**: Tópicos específicos da matéria (ex: Bhaskara, Trigonometria)
+- **Assuntos Diversos**: Tópicos complementares e interdisciplinares
+- Use as abas para alternar entre os tipos de assunto
 
 ### 3. Estudar no Chat
 - Faça perguntas sobre o assunto
@@ -114,19 +118,21 @@ npx http-server
 - Cartografia, Geologia, Geomorfologia, Climatologia, Hidrografia, Biogeografia, Demografia, Urbanização, Industrialização, Agropecuária, Globalização, Geopolítica
 
 ### Português
-- Fonética, Morfologia, Sintaxe, Semântica, Concordância, Regência, Crase, Pontuação, Interpretação de Textos, Gêneros Textuais, Redação, Figuras de Linguagem
+- **Principais**: Fonética, Morfologia, Sintaxe, Semântica, Concordância, Regência, Crase, Pontuação, Interpretação de Textos, Gêneros Textuais, Redação, Figuras de Linguagem
+- **Diversos**: Variações Linguísticas, Português do Brasil vs Portugal, Estrangeirismos, Oratória e Comunicação, Técnicas de Estudo
 
 ### Literatura
-- Trovadorismo, Humanismo, Classicismo, Barroco, Arcadismo, Romantismo, Realismo, Naturalismo, Parnasianismo, Simbolismo, Pré-Modernismo, Modernismo
+- **Principais**: Trovadorismo, Humanismo, Classicismo, Barroco, Arcadismo, Romantismo, Realismo, Naturalismo, Parnasianismo, Simbolismo, Pré-Modernismo, Modernismo
+- **Diversos**: Literatura Contemporânea, Literatura Africana, Crítica Literária, Teoria Literária, Adaptações Cinematográficas
 
 ## 🔧 Personalização
 
 ### Adicionar Nova Matéria
-1. No arquivo `js/scripts.js`, adicione uma nova entrada no objeto `subjectsData`
+1. No arquivo `js/dados.js`, adicione uma nova entrada no objeto `subjectsData`
 2. Adicione o card correspondente no `index.html`
 
 ### Modificar Assuntos
-1. Edite o array `topics` da matéria desejada em `subjectsData`
+1. Edite o array `topics` da matéria desejada em `subjectsData` no arquivo `js/dados.js`
 
 ### Alterar Cores e Estilos
 1. Modifique as classes Tailwind nos arquivos HTML
