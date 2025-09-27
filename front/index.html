@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudo Certo - ENEM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/estilo.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-6">
+                <div class="flex items-center">
+                    <i class="fas fa-graduation-cap text-3xl text-indigo-600 mr-3"></i>
+                    <h1 class="text-2xl font-bold text-gray-900">Estudo Certo</h1>
+                </div>
+                <div class="text-sm text-gray-600">
+                    <i class="fas fa-target mr-2"></i>
+                    Preparação para o ENEM
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Welcome Section -->
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                Escolha sua matéria
+            </h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                Selecione a matéria que você deseja estudar e comece sua jornada de preparação para o ENEM
+            </p>
+        </div>
+
+        <!-- Subjects Grid -->
+        <div id="subjects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Matemática -->
+            <div class="subject-card bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2" data-subject="matematica">
+                <div class="p-6 text-center">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-calculator text-2xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Matemática</h3>
+                    <p class="text-gray-600 text-sm">Álgebra, Geometria, Funções e mais</p>
+                </div>
+            </div>
+
+            <!-- Física -->
+            <div class="subject-card bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2" data-subject="fisica">
+                <div class="p-6 text-center">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-atom text-2xl text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Física</h3>
+                    <p class="text-gray-600 text-sm">Mecânica, Termodinâmica, Óptica</p>
+                </div>
+            </div>
+
+            <!-- Química -->
+            <div class="subject-card bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2" data-subject="quimica">
+                <div class="p-6 text-center">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-flask text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Química</h3>
+                    <p class="text-gray-600 text-sm">Orgânica, Inorgânica, Físico-química</p>
+                </div>
+            </div>
+
+            <!-- Biologia -->
+            <div class="subject-card bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2" data-subject="biologia">
+                <div class="p-6 text-center">
+                    <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-dna text-2xl text-emerald-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Biologia</h3>
+                    <p class="text-gray-600 text-sm">Genética, Ecologia, Citologia</p>
+                </div>
+            </div>
+
+            <!-- História -->
+            <div class="subject-card bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2" data-subject="historia">
+                <div class="p-6 text-center">
+                    <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-landmark text-2xl text-yellow-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">História</h3>
+                    <p class="text-gray-600 text-sm">Brasil, Mundo, Contemporânea</p>
+                </div>
+            </div>
+
+            <!-- Geografia -->
+            <div class="subject-card bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2" data-subject="geografia">
+                <div class="p-6 text-center">
+                    <div class="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-globe-americas text-2xl text-teal-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Geografia</h3>
+                    <p class="text-gray-600 text-sm">Física, Humana, Cartografia</p>
+                </div>
+            </div>
+
+            <!-- Português -->
+            <div class="subject-card bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2" data-subject="portugues">
+                <div class="p-6 text-center">
+                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-book text-2xl text-red-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Português</h3>
+                    <p class="text-gray-600 text-sm">Gramática, Literatura, Redação</p>
+                </div>
+            </div>
+
+            <!-- Literatura -->
+            <div class="subject-card bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2" data-subject="literatura">
+                <div class="p-6 text-center">
+                    <div class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-feather-alt text-2xl text-pink-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Literatura</h3>
+                    <p class="text-gray-600 text-sm">Escolas Literárias, Obras, Autores</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="text-center text-gray-600">
+                <p>&copy; 2024 Estudo Certo. Preparação inteligente para o ENEM.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/scripts.js"></script>
+</body>
+</html>
