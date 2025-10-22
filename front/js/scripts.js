@@ -1,6 +1,6 @@
 // Configuração da API OpenAI
-const OPENAI_API_KEY = ''; // Substitua pela sua chave da OpenAI
-const OPENAI_API_URL = '';
+const OPENAI_API_KEY = '';
+const OPENAI_API_URL = '/message';
 
 // Estado global da aplicação
 let currentState = {

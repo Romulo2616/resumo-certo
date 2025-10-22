@@ -3,6 +3,8 @@ services:
     build: ./front
     ports:
       - "8080:80"
+    depends_on:
+      - back
 
   back:
     build: ./backend
