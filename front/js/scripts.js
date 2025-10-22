@@ -1,6 +1,6 @@
 // Configuração da API OpenAI
 const OPENAI_API_KEY = ''; // Substitua pela sua chave da OpenAI
-const OPENAI_API_URL = 'https://api.openai.com/v1/chat/completions';
+const OPENAI_API_URL = '';
 
 // Estado global da aplicação
 let currentState = {
@@ -357,17 +357,15 @@ ${currentState.topicType === 'diversos' ? '- Este é um assunto complementar, en
         { role: 'user', content: userMessage }
     ];
 
-    const response = await fetch(OPENAI_API_URL, {
+    const url = OPENAI_API_URL + '?authorization=' + OPENAI_API_KEY;
+
+    const response = await fetch(url, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${OPENAI_API_KEY}`
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            model: 'gpt-3.5-turbo',
             messages: messages,
-            max_tokens: 1000,
-            temperature: 0.7
         })
     });
 
@@ -376,7 +374,7 @@ ${currentState.topicType === 'diversos' ? '- Este é um assunto complementar, en
     }
 
     const data = await response.json();
-    return data.choices[0].message.content;
+    return data.response;
 }
 
 function showLoading(show) {
